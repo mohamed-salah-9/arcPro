@@ -1,0 +1,190 @@
+<div id="ngx-datatable" class="page-layout simple fullwidth docs">
+
+
+    <!-- CONTENT -->
+    <div class="content pr-20 ">
+
+
+        <p-table #dt [columns]="cols" [scrollable]="true" scrollHeight="43rem" [value]="bussinesss" [responsive]="true"
+            [resizableColumns]="true" selectionMode="single" [(selection)]="bussiness1"
+            (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="15">
+            <!-- export  with pdf , execl, cvs -->
+
+            <ng-template pTemplate="caption">
+                <div class="ui-helper-clearfix" style="text-align: left">
+                    <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL"
+                        (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button>
+                    <span class="secondary-text" style="margin-left:30%;">{{'SAMPLE.Bussiness' | translate}}</span>
+                    <button type="button" pButton class="ui-button-success" iconPos="left" style="float:right"
+                        icon="fa fa-plus" (click)="showDialogToAdd()" label="{{'SAMPLE.add' | translate}}"></button>
+
+                </div>
+            </ng-template>
+            <ng-template pTemplate="colgroup" let-columns>
+                <colgroup>
+                    <col *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th>{{'SAMPLE.ID' | translate}} </th>
+                    <!-- <th  >{{'SAMPLE.Image' | translate}} </th> -->
+                    <th>{{'SAMPLE.Name' | translate}} </th>
+                    <th>{{'SAMPLE.Phone' | translate}} </th>
+                    <th>{{'SAMPLE.Email' | translate}} </th>
+
+                    <th>{{'SAMPLE.Address' | translate}} </th>
+                <tr>
+                    <!--search for each feilds -->
+                    <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                        <input placeholder=" name" *ngSwitchCase="'name'" pInputText type="text"
+                            (input)="dt.filter($event.target.value, col.field, 'contains')">
+
+                        <input placeholder="email" *ngSwitchCase="'email'" pInputText type="text"
+                            (input)="dt.filter($event.target.value, col.field, 'contains')">
+                        <input placeholder="address" *ngSwitchCase="'address'" pInputText type="text"
+                            (input)="dt.filter($event.target.value, col.field, 'contains')">
+                        <input placeholder="serach by phone" *ngSwitchCase="'phone'" pInputText type="text"
+                            (input)="dt.filter($event.target.value, col.field, 'contains')">
+
+
+
+
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-i="rowIndex" let-bussinesss class="ui-resizable-column">
+                <tr [pSelectableRow]="bussinesss">
+                    <td id="no ">{{ i + 1 }} </td>
+
+                    <td> {{bussinesss.name}} </td>
+                    <td> {{bussinesss.phone}} </td>
+                    <td> {{bussinesss.email}} </td>
+                    <td> {{bussinesss.address}} </td>
+
+                </tr>
+            </ng-template>
+
+        </p-table> <!--  for add-->
+
+        <p-dialog header=" Bussiness" [(visible)]="displayDialogforadd" [focusOnShow]="true" [responsive]="true"
+            showEffect="fade" [modal]="false" [style]="{width: '40%'}">
+            <form class="form" #myform="ngForm" (ngSubmit)='save(myform.value)'>
+
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-12 form-group">
+                        <div class="ui-g-4">
+                            <label for="text">{{'SAMPLE.Name' | translate}}</label>
+                        </div>
+                        <div class="ui-g-8">
+                            <input pInputText type="text" [(ngModel)]="bussiness1.name" name="name" />
+
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12  form-group">
+                        <div class="ui-g-4">
+                            <label for="done">{{'SAMPLE.Phone' | translate}}</label>
+                        </div>
+                        <div class="ui-g-8">
+                            <input pInputText type="text" numeric [(ngModel)]="bussiness1.phone" name="phone" />
+                        </div>
+                    </div>
+                    <div class="ui-g-12  form-group">
+                        <div class="ui-g-4">
+                            <label for="done">{{'SAMPLE.Email' | translate}}</label>
+                        </div>
+                        <div class="ui-g-8">
+                            <input pInputText type="email" [(ngModel)]="bussiness1.email" name="email" />
+                        </div>
+                    </div>
+                    <div class="ui-g-12  form-group">
+                        <div class="ui-g-4">
+                            <label for="done">{{'SAMPLE.Address' | translate}}</label>
+                        </div>
+                        <div class="ui-g-8">
+                            <input pInputText type="text" [(ngModel)]="bussiness1.address" name="address" />
+                        </div>
+                    </div>
+
+                </div>
+
+                <p-footer>
+                    <div class="ui-dialog-buttonpane ui-helper-clearfix ui-g-offset-5">
+                        <button type="submit" pButton icon="fa fa-check" class="ui-button-success"
+                            label="{{'SAMPLE.save' | translate}}"></button>
+                    </div>
+                </p-footer>
+            </form>
+        </p-dialog>
+        <!--  for edit-->
+
+        <p-dialog header=" Bussiness" [(visible)]="displayDialogforedit" [focusOnShow]="true" [responsive]="true"
+            showEffect="fade" [modal]="false" [style]="{width: '45%'}">
+            <form class="form" #myForm="ngForm" (ngSubmit)='edit(myForm.value)'>
+
+                <div class="ui-g ui-fluid">
+
+                    <div class="ui-g-12 form-group">
+                        <div class="ui-g-4">
+                            <label for="text">{{'SAMPLE.Name' | translate}}</label>
+                        </div>
+                        <div class="ui-g-8">
+                            <input pInputText name="name" [(ngModel)]="bussiness1.name" />
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12 form-group">
+                        <div class="ui-g-4">
+                            <label for="text">{{'SAMPLE.Phone' | translate}}</label>
+                        </div>
+                        <div class="ui-g-8">
+                            <input pInputText type="text" numeric name="phone" [(ngModel)]="bussiness1.phone" />
+                        </div>
+                    </div>
+                    <div class="ui-g-12 form-group">
+                        <div class="ui-g-4">
+                            <label for="text">{{'SAMPLE.Email' | translate}}</label>
+                        </div>
+                        <div class="ui-g-8">
+                            <input pInputText type="email" name="email" [(ngModel)]="bussiness1.email" />
+                        </div>
+                    </div>
+                    <div class="ui-g-12 form-group">
+                        <div class="ui-g-4">
+                            <label for="text">{{'SAMPLE.Address' | translate}}</label>
+                        </div>
+                        <div class="ui-g-8">
+                            <input pInputText type="text" name="address" [(ngModel)]="bussiness1.address" />
+                        </div>
+                    </div>
+
+                </div>
+                <p-footer>
+                    <div class="ui-g-12 ui-md-12 ui-lg-6 form-group">
+
+                        <div class="ui-g-12 ui-md-12 ui-lg-12 ">
+                            <a routerLink="/reports/{{bussiness1._id}}"> <button type="submit" pButton
+                                    icon="fa fa-check" label="{{'SAMPLE.report' | translate}}"></button></a>
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-12 ui-lg-6">
+
+                        <button class="ui-g-12 ui-md-12 ui-lg-6" type="submit" class="ui-button-warning" pButton
+                            icon="fa fa-check" class="ui-button-warning" label="{{'SAMPLE.edit' | translate}}"></button>
+
+                        <div class="ui-g-12 ui-md-12 ui-lg-6" *ngIf='admin.role=="SuperAdmin"'>
+                            <button type="button" class="ui-button-danger" pButton icon="fas fa-times"
+                                (click)="delete()" class="ui-button-danger" label="{{'SAMPLE.delete' | translate}}"
+                                value="{{bussiness1._id}}">
+                            </button>
+                        </div>
+
+                    </div>
+                </p-footer>
+
+            </form>
+        </p-dialog>
+    </div>
+
+</div>

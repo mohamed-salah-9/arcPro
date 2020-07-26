@@ -1,0 +1,22 @@
+// Import Fuse core library
+@import 'variables';
+@import '../node_modules/@fortawesome/fontawesome-free-webfonts/scss/fontawesome.scss';
+@import '../node_modules/@fortawesome/fontawesome-free-webfonts/scss/fa-solid.scss';
+@import '../node_modules/@fortawesome/fontawesome-free-webfonts/scss/fa-brands.scss';
+
+@import "@fuse/scss/core";
+
+// Import app.theme.scss
+@import "app/app.theme";
+label {
+    font-weight: bolder !important;
+}
+th{
+     background-color: rgb(150, 162, 202) !important;
+    text-align: center !important;
+
+}
+td{
+    font-weight: 500 !important;
+    text-align: center !important;
+}

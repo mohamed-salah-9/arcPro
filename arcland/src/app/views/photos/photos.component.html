@@ -1,0 +1,121 @@
+<app-head>
+  <ng-container class="h2">Projects portfolio</ng-container>
+  <ng-container class="p">home - <span class="-span"
+      style="color: #CD6155; word-spacing: 0 !important;">portfolio</span></ng-container>
+</app-head>
+<!----
+<section class="container">
+  <div class="card-deck pt-5">
+    <div class="card card-g">
+      <div class="overlay1 overflow-hidden">
+        <img src="assets/portfolio/1.jpg" class="card-img-top card-img">
+        <div class="overlay-div"></div>
+      </div>
+      <div class="card-body c-body">
+        <small class="text-muted card-small">Interior</small>
+        <small class="text-muted pl-3">Design</small>
+        <h5 class="card-h5 card-title">mauntain view</h5>
+        <p class="card-p card-text">Distinctively exploit optimal alignments for intuitive bandwidth. Quickly coordinate
+          e-business applications through revolutionary catalysts for change.</p>
+        <ul class="nav justify-content-left">
+            <li class="fasbook"><i class="fab fa-facebook fa-2x"></i></li>
+            <li class="instagrm ml-2"><i class="fab fa-instagram fa-2x"></i></li>
+            <li class="youtube ml-2"><i class="fab fa-youtube fa-2x"></i></li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <img src="assets/portfolio/3.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
+          content. This content is a little bit longer.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="assets/portfolio/4.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
+          content. This content is a little bit longer.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+  </div>
+
+</section>--->
+
+<section class="container-fluid pt-5">
+  <div class="row row-cols-1 row-cols-md-2">
+    <div class="col-12 col-lg-4 mb-4" *ngFor='let img of imagess'>
+      <div class="card card-g ">
+        <div class="overflow-hidden" *ngFor='let imgs of img.images; let i = index;'>
+          <div  *ngIf="i == 0">
+            <img src="{{imgs}} " class="card-img-top card-img " style="height:250px !important;" alt="...">
+          </div>
+        </div>
+        <div class="card-body c-body">
+          <small class="text-muted card-small">Interior</small>
+          <small class="text-muted pl-3">Design</small> 
+          <h5 class="card-title card-h5 ">{{img.title}}</h5>
+          <p class="card-text card-p ">{{img.description}}</p>
+          <div class="row" style="padding: 0% 5%;">
+            <ul class="nav justify-content-left">
+              <li class="fasbook"> <a class="" href="https://www.facebook.com/Arcland2" target="_blank"><i class="fab fa-facebook fa-2x"></i></a></li>
+              <li class="instagrm ml-2"><a class="instagrm" href="https://www.instagram.com/arclandegypt/?hl=en" target="_blank"><i class="fab fa-instagram fa-2x"></i></a></li>
+              <li class="youtube ml-2"><i class="fab fa-youtube fa-2x"></i></li>
+            </ul>
+            <a routerLink="{{img._id}}" class="ml-auto photo-a-ce btn rounded-pill">MORE</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!----
+    <div class="col-12 col-lg-4 mb-4">
+      <div class="card card-g ">
+        <div class="overflow-hidden">
+          <img src="assets/portfolio/4.jpg" class="card-img-top card-img " alt="...">
+        </div>
+        <div class="card-body c-body">
+          <small class="text-muted card-small">Interior</small>
+          <small class="text-muted pl-3">Design</small>
+          <h5 class="card-title card-h5 ">mauntain view</h5>
+          <p class="card-text card-p ">This is a longer card with supporting text below as a natural lead-in to
+            additional content. This content is a little bit longer.</p>
+          <div class="row" style="padding: 0% 5%;">
+            <ul class="nav justify-content-left">
+              <li class="fasbook"><i class="fab fa-facebook fa-2x"></i></li>
+              <li class="instagrm ml-2"><i class="fab fa-instagram fa-2x"></i></li>
+              <li class="youtube ml-2"><i class="fab fa-youtube fa-2x"></i></li>
+            </ul>
+            <a [routerLink]="['/photo']" class="ml-auto photo-a-ce btn rounded-pill">MORE</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-4 mb-4">
+      <div class="card card-g ">
+        <div class="overflow-hidden">
+          <img src="assets/portfolio/4.jpg" class="card-img-top card-img " alt="...">
+        </div>
+        <div class="card-body c-body">
+          <small class="text-muted card-small">Interior</small>
+          <small class="text-muted pl-3">Design</small>
+          <h5 class="card-title card-h5 ">mauntain view</h5>
+          <p class="card-text card-p ">This is a longer card with supporting text below as a natural lead-in to
+            additional content. This content is a little bit longer.</p>
+          <div class="row" style="padding: 0% 5%;">
+            <ul class="nav justify-content-left">
+              <li class="fasbook"><i class="fab fa-facebook fa-2x"></i></li>
+              <li class="instagrm ml-2"><i class="fab fa-instagram fa-2x"></i></li>
+              <li class="youtube ml-2"><i class="fab fa-youtube fa-2x"></i></li>
+            </ul>
+            <a [routerLink]="['/photo']" class="ml-auto photo-a-ce btn rounded-pill">MORE</a>
+          </div>
+        </div>
+      </div>
+    </div>-->
+  </div>
+ 
+</section>

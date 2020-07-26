@@ -1,0 +1,9 @@
+<div class="analyses"  *ngIf="chart">
+    <!-- <canvas id="canvas">{{ chart }}</canvas> -->
+ 
+    <p-chart type="bar" [data]="data" [options]="options" (onDataSelect)="selectData($event)"></p-chart>
+    
+ 
+  </div>
+
+ 

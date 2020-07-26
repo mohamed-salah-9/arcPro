@@ -1,0 +1,61 @@
+<div id="ngx-datatable" class="page-layout simple fullwidth docs">
+
+
+    <!-- CONTENT -->
+    <div class="content pr-20 ">
+
+
+        <p-table #dt [columns]="cols" [scrollable]="true" scrollHeight="43rem" [value]="contacts" [responsive]="true"
+            [resizableColumns]="true" [paginator]="true" [rows]="15">
+            <!-- export  with pdf , execl, cvs -->
+
+            <ng-template pTemplate="caption">
+
+            </ng-template>
+            <ng-template pTemplate="colgroup" let-columns>
+                <colgroup>
+                    <col *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th>{{'SAMPLE.ID' | translate}} </th>
+                    <th>{{'SAMPLE.name' | translate}} </th>
+                    <th>{{'SAMPLE.mobile' | translate}} </th>
+                    <th>{{'SAMPLE.email' | translate}} </th>
+                    <th>{{'SAMPLE.unit_type' | translate}} </th>
+                    <th>{{'SAMPLE.total_area' | translate}} </th>
+                    <th>{{'SAMPLE.unit_locations' | translate}} </th>
+                    <th>{{'SAMPLE.best_time' | translate}} </th>
+                    <th>{{'SAMPLE.Action' | translate}} </th>
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-i="rowIndex" let-contacts class="ui-resizable-column">
+                <tr [pSelectableRow]="contacts">
+                    <td id="no ">{{ i + 1 }} </td>
+                    <td>{{contacts.name }} </td>
+                    <td>{{contacts.mobile }} </td>
+                    <td>{{contacts.email }} </td>
+                    <td>{{contacts.unit_type }} </td>
+                    <td>{{contacts.total_area }} </td>
+                    <td>{{contacts.unit_locations }} </td>
+                    <td>{{contacts.best_time }} </td>
+
+                    <td>
+                        <div class="ui-g-6 ui-md-6 ui-lg-6 " *ngIf='admin.role=="SuperAdmin"'>
+                            <button type="button" class="ui-button-danger" pButton icon="fas fa-times"
+                                (click)="delete(contacts._id)" class="ui-button-danger"
+                                label="{{'SAMPLE.delete' | translate}}">
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+
+        </p-table> <!--  for add-->
+
+
+    </div>
+
+</div>

@@ -1,0 +1,32 @@
+.-span{
+    color: #CD6155;
+    word-spacing: 0rem !important;
+}
+.contact-h{
+    text-transform: capitalize;
+    color: #CD6155;
+    font-size: 35px;
+    font-weight: bolder;
+    word-spacing: 1rem;
+    text-align: center;
+}
+.contact-form{
+    padding-top: 8%;
+}
+.contact-form1{
+    padding-top: 5%;
+}
+.mat-stepper-horizontal {
+    margin-top: 8px;
+  }
+  
+.mat-form-field {
+    margin-top: 16px;
+}
+.label-s{
+    color: #578bb9;
+    font-weight: bolder;
+}
+.error-s{
+    color: red;
+}

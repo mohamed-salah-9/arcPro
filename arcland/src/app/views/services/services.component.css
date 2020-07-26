@@ -1,0 +1,183 @@
+.first-p{
+    position: relative;
+}
+.first-p::after{
+    content: '';
+    position: absolute;
+    border: 2px solid #CD6155;
+    top: 35px;
+    left: 0;
+    width: 10%;
+    border-radius: 5px;
+}
+.first-h2{
+    font-size: 2.66em;
+    font-weight: bold;
+}
+
+.service-h5{
+    position: relative;
+    font-size: 1.33em;
+    font-family: "Montserrat",Arial,Helvetica,sans-serif;
+    font-weight: bold;
+}
+.service-h5::after{
+    content: '';
+    position: absolute;
+    border: 2px solid #CD6155;
+    top: 35px;
+    left: 0;
+    width: 40%;
+    border-radius: 5px;
+}
+.service-p{
+    font-size: .877em;
+    text-transform: capitalize;
+    font-family: "Roboto Condensed",Arial,sans-serif;
+}
+.service-a{
+    background: #cd6155;
+    padding: 10%;
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 3%;
+    color: white;
+} 
+.service-a:hover{
+    background-color: white;
+    border: 1px solid #cd6155 ;
+    color: #cd6155;
+}
+.service-i{
+    color: #9f998a;
+}
+/*--card---*/
+.overlay-card{
+    position: relative;
+    height: 300px;
+}
+.overlay-img , .overlay-div ,.overlay-div-ce , .overlay-c{
+    position: absolute;
+    top:0;
+    left:0;
+    height: 100%;
+    width:100%;
+}
+.overlay-c{
+    position: absolute;
+    background: beige;
+    opacity: -0.1;
+    width: 100%;
+    height: 100%;
+}
+.overlay-div {
+    top: 5%;
+    left: 8%;
+}
+.overlay-card-div-h6{
+    position: relative;
+}
+.overlay-card-div-h6::after{
+    content: '';
+    position: absolute;
+    border: 2px solid #CD6155;
+    top: 35px;
+    left: 0;
+    width: 10%;
+    border-radius: 5px;
+}
+.overlay-card-div-h4{
+    font-size: 2.5em;
+    font-weight: bolder;
+}
+.overlay-img{
+    transition: all 1s;
+}
+ 
+.zoom:hover .overlay-img,
+.zoom:focus .overlay-img {
+  transform: scale(1.2);
+}
+.srv-a{
+    background: #CD6155;
+    color: white;
+    padding: 2% 5% 2% 5%;
+    font-weight: bold;
+    font-size: 15px;
+    margin-top: 15%;
+}
+.srv-a:hover{
+    background-color: white;
+    color: #CD6155;
+}
+.overlay-div-ce{
+    top: 5%;
+    left: -8%;
+}
+.overlay-card-div-h6-ce{
+    position: relative;
+    color: white;
+}
+.overlay-card-div-h6-ce::after{
+    content: '';
+    position: absolute;
+    border: 2px solid #CD6155;
+    top: 35px;
+    right: 0;
+    width: 10%;
+    border-radius: 5px;
+}
+.srv-a-ce{
+    background: white;
+    color: black;
+    padding: 2% 5% 2% 5%;
+    font-weight: bold;
+    font-size: 15px;
+    margin-top: 15%;
+}
+.srv-a-ce:hover{
+    background-color: black;
+    color: white;
+}
+/*----service----*/
+.services-p1{
+    position: relative;
+    
+}
+.services-p1::after{
+    content: '';
+    position: absolute;
+    border: 2px solid #CD6155;
+    bottom: -27px;
+    left: 0;
+    width: 10%;
+    border-radius: 5px;
+}
+.services-h2{
+    padding-top: 5%;
+    font-size: 2.66em;
+}
+.service-card2-h4{
+    position: relative;
+    font-size: 1.33rem;
+    font-family: "Montserrat";
+    padding-top: 10%;
+    font-weight: bolder;
+}
+.service-card2-h4::after{
+    content: '';
+    position: absolute;
+    border: 2px solid #CD6155;
+    bottom: -18px;
+    left: 0;
+    width: 25%;
+    border-radius: 5px;
+}
+.service-card2-i{
+    color:#CD6155 ;
+}
+.service-card2-p{
+    font-size: .8rem;
+    padding-top: 10%;
+    font-family: "Roboto Condensed",Arial,Helvetica,sans-serif;
+}

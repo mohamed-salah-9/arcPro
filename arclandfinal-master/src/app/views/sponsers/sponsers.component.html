@@ -1,0 +1,102 @@
+<div id="ngx-datatable" class="page-layout simple fullwidth docs">
+
+
+    <!-- CONTENT -->
+    <div class="content pr-20 ">
+
+
+        <p-table #dt [columns]="cols" [scrollable]="true" scrollHeight="43rem" [value]="sponsors" [responsive]="true"
+            [resizableColumns]="true" [paginator]="true" [rows]="15">
+            <!-- export  with pdf , execl, cvs -->
+
+            <ng-template pTemplate="caption">
+                <div class="ui-helper-clearfix" style="text-align: left">
+                    <button type="button" pButton class="ui-button-success" iconPos="left" style="float:right"
+                        icon="fa fa-plus" (click)="showDialogToAdd()" label="{{'SAMPLE.add' | translate}}"></button>
+
+                </div>
+            </ng-template>
+            <ng-template pTemplate="colgroup" let-columns>
+                <colgroup>
+                    <col *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th>{{'SAMPLE.ID' | translate}} </th>
+
+                    <th>{{'SAMPLE.Images' | translate}} </th>
+                    <th>{{'SAMPLE.Action' | translate}} </th>
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-i="rowIndex" let-sponsors class="ui-resizable-column">
+                <tr [pSelectableRow]="sponsors">
+                    <td id="no ">{{ i + 1 }} </td>
+
+
+                    <td>
+
+                        <p-lightbox type="content">
+                            <a class="group   m-auto" href="#">
+                                <img width="20%" height="20%" src="{{sponsors.image}}">
+                            </a>
+                            <img width="650" height="400" src="{{sponsors.image}}">
+                        </p-lightbox>
+                    </td>
+
+                    <td>
+                        <div class="ui-g-6 ui-md-6 ui-lg-6 ui-lg-offset-4" *ngIf='admin.role=="SuperAdmin"'>
+                            <button type="button" class="ui-button-danger" pButton icon="fas fa-times"
+                                (click)="delete(sponsors._id)" class="ui-button-danger"
+                                label="{{'SAMPLE.delete' | translate}}">
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+
+        </p-table> <!--  for add-->
+
+        <p-dialog header=" Add Images" [(visible)]="displayDialogforadd" [focusOnShow]="true" [responsive]="true"
+            showEffect="fade" [modal]="false" [style]="{width: '75rem'}">
+            <form [formGroup]="form" (submit)="onSavePost()">
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-4">
+                        <label for="text">{{'SAMPLE.Image' | translate}}</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <p-fileUpload name="image" url="http://localhost:3000/sponsors" (onUpload)="onUpload($event)"
+                            chooseLabel="Select" uploadLabel="Load" cancelLabel="Cancel" #fileInput>
+                        </p-fileUpload>
+                    </div>
+
+
+                </div>
+
+            </form>
+
+
+
+
+        </p-dialog>
+        <!--  for edit-->
+
+        <p-dialog header=" Delete Selected Images" [(visible)]="displayDialogforedit" [focusOnShow]="true"
+            [responsive]="true" showEffect="fade" [modal]="false" [style]="{width: '45%'}">
+
+
+
+
+            <div class="ui-g-6 ui-md-6 ui-lg-6 ui-lg-offset-4" *ngIf='admin.role=="SuperAdmin"'>
+                <button type="button" class="ui-button-danger" pButton icon="fas fa-times"
+                    (click)="delete(sponsors._id)" class="ui-button-danger" label="{{'SAMPLE.delete' | translate}}">
+                </button>
+            </div>
+
+
+
+        </p-dialog>
+    </div>
+
+</div>

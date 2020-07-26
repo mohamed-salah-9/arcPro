@@ -1,0 +1,324 @@
+  
+
+<div id="ngx-datatable" class="page-layout simple fullwidth docs"  >
+
+    
+    <!-- CONTENT -->
+    <div class="content  pr-20">
+        <p-table #dt [columns]="cols" [scrollable]="true" scrollHeight="43rem" [value]="location_details" [responsive]="true" [resizableColumns]="true"
+            selectionMode="single" [(selection)]="location_details1" (onRowSelect)="onRowSelect($event)"  
+              class="tt" [scrollable]="true" >
+            <!-- export  with pdf , execl, cvs -->
+
+            <ng-template pTemplate="caption">
+                <div class="ui-helper-clearfix" style="text-align: left">
+                         <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL"
+                        (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button>
+                      <ng-container *ngFor="let location of location">
+                         
+                        <span *ngIf="location._id==url_id" class="secondary-text"  style="margin-left:30%;">{{'SAMPLE.Arcland Locations Details' | translate}} : {{location.location}} </span>
+                    </ng-container>
+                        <button type="button" class="ui-button-success" iconPos="left" style="float:right" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="{{'SAMPLE.add' | translate}}"></button>
+    
+                    </div>
+            </ng-template>
+            <ng-template pTemplate="colgroup" let-columns>
+                <colgroup>
+                    <col *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                         <th id="no "  >{{'SAMPLE.Name' | translate}}  </th>            
+                        <th style="background-color: #F4D03F !important;">{{'SAMPLE.Estimated Amount Of Assay' | translate}}  </th>
+                        <th style="background-color: #F4D03F !important;" >{{'SAMPLE.Price Per Square Meter' | translate}} </th>
+                        <th style="background-color: #F4D03F !important;"> {{'SAMPLE.Total Price In The Assay' | translate}} </th> 
+
+                        <th style="background-color: #CD6155 !important;">{{'SAMPLE.Actual Quantity' | translate}} </th>
+                        <th style="background-color: #CD6155 !important;"> {{'SAMPLE.The Total Cost To The Customer' | translate}} </th> 
+                        <!-- <th> {{'SAMPLE.Actual Total Paid For The Item From The Customer' | translate}} </th> -->
+                        <th  style="background-color: #58D68D !important;"> {{'SAMPLE.Price Per Square Meter For The Worker' | translate}} </th>
+                        <th style="background-color: #58D68D !important;">{{'SAMPLE.Total For Worker' | translate}} </th>
+                        <th style="background-color: #58D68D !important;">{{'SAMPLE.Worker Payments For Now' | translate}}  </th>
+                        <th style="background-color: #58D68D !important;">{{'SAMPLE.Left For Worker' | translate}} </th>
+                        <th style="background-color: #58D68D !important;"> {{'SAMPLE.The Price Difference' | translate}} </th>
+                        <!-- <th>{{'SAMPLE.Required From The Customer' | translate}}  </th> -->
+                        <th>{{'SAMPLE.Date' | translate}}  </th>
+                        <th> {{'SAMPLE.Location' | translate}} </th>   
+               
+            </ng-template>
+            <!-- data from database -->
+
+            <ng-template pTemplate="body" let-i="rowIndex" let-rowData let-location_details class="ui-resizable-column" let-columns="location_details"    >
+                   <tr [pSelectableRow]="location_details"  >
+                
+                    <ng-container   *ngIf="location_details.Location_detail_id==id  ">
+                        <td> {{location_details.band_name}} </td>
+                      <td> {{location_details.estimated_amount_of_assay}} </td>
+                    <td > {{location_details.price_per_square_meter}}</td>
+                    <td> {{location_details.total_price_in_the_assay}}</td>
+                    <td> {{location_details.actual_quantity}}</td>
+                    <td> {{location_details.the_total_cost_to_the_customer}}</td> 
+                    <!-- <td> {{location_details.actual_total_paid_for_the_item_from_the_customer}} </td> -->
+                    <td > {{location_details.price_per_square_meter_for_the_worker}}</td>
+                    <td> {{location_details.total_for_worker}}</td>
+                    <td>
+                        <li style="list-style-type: none;" *ngFor='let payment of location_details.worker_payments_for_now'> {{payment.values}}
+                        </li>
+                        <hr>
+                        <ng-container *ngFor='let total_payment_worker of total_payment_worker'>
+
+                            <ng-container *ngIf="location_details._id==total_payment_worker._id">{{total_payment_worker.value}}
+                                ج.م</ng-container>
+                         </ng-container>
+                    </td>
+                    <ng-container *ngFor='let total_payment_worker of total_payment_worker'>
+
+                        <ng-container *ngIf="location_details._id==total_payment_worker._id">  
+                                         <td> {{total_payment_worker.diffrence}}</td>
+                        </ng-container>
+                     </ng-container>
+                     <ng-container *ngFor='let price_dif of price_dif' >
+                        <td *ngIf="location_details._id == price_dif._id ">{{ price_dif.value }}</td>
+                    </ng-container>                    <!-- <td> {{location_details.required_from_the_customer}}</td> -->
+                    <td> {{location_details.date| date:'fullDate'}}</td>
+                    <ng-container *ngFor='let location of location' >
+                        <td *ngIf="location_details.Location_detail_id == location._id ">{{ location.location }}</td>
+                    </ng-container>
+                 </ng-container>
+                    
+                </tr>
+            </ng-template>
+             
+        </p-table>
+
+        <!--  for add forms-->
+
+        <p-dialog header=" Locations" [(visible)]="displayDialogforadd" [focusOnShow]="true" [responsive]="true"
+            showEffect="fade" [modal]="false" [style]="{width: '80rem'}" [contentStyle]="{'overflow':'auto','max-height':'40rem'}">
+            <form class="form" #myform="ngForm" (ngSubmit)='save(myform.value); myform.reset()'>
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-12 ui-md-12 ui-lg-6 form-group">
+                         
+                        <div class="ui-g-6">
+                            <label for="text">{{'SAMPLE.Name' | translate}} </label>
+                        </div>
+                        <div class="ui-g-4">
+                            <input pInputText   type="text"  [(ngModel)]="location_details1.band_name" name="band_name" />
+                        </div>
+                    </div>
+                         <div class="ui-g-12 ui-md-12 ui-lg-6 form-group">
+                            <div class="ui-g-6">
+                                <label for="text">{{'SAMPLE.Estimated Amount Of Assay' | translate}}</label>
+                            </div>
+                            <div class="ui-g-4">
+                                <input pInputText id="a1" type="number" (keyup)="first()"  [(ngModel)]="location_details1.estimated_amount_of_assay" name="estimated_amount_of_assay" />
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-6 form-group">
+
+                        <div class="ui-g-6">
+                            <label for="text">{{'SAMPLE.Price Per Square Meter' | translate}}</label>
+                        </div>
+                        <div class="ui-g-4">
+                            <input pInputText id="a2" class="b-2" (keyup)="first()" (keyup)="second()" type="number" [(ngModel)]="location_details1.price_per_square_meter" name="price_per_square_meter" />
+                        </div>
+                    </div> 
+                    <div class="ui-g-12 ui-md-12 ui-lg-6  form-group">
+                        <div class="ui-g-6">
+                            <label for="done">{{'SAMPLE.Total Price In The Assay' | translate}}</label>
+                        </div>
+                        <div class="ui-g-4">
+                            <input pInputText   id="f1" [disabled]="disabled"  type="number"/>
+                            <input type="hidden"  [(ngModel)]="location_details1.total_price_in_the_assay" name="total_price_in_the_assay">
+
+                        </div>
+                    </div>   
+                    <div class="ui-g-12 ui-md-12 ui-lg-6  form-group">
+                        <div class="ui-g-6">
+                            <label for="done">{{'SAMPLE.Actual Quantity' | translate}}</label>
+                        </div>
+                        <div class="ui-g-4">
+                            <input pInputText type="number" id="b-1" (keyup)="second()" (keyup)="third()" [(ngModel)]="location_details1.actual_quantity" name="actual_quantity" />
+                        </div>
+                    </div>
+                   
+                    <div class="ui-g-12 ui-md-12 ui-lg-6  form-group">
+                        <div class="ui-g-6">
+                            <label for="done"> {{'SAMPLE.The Total Cost To The Customer' | translate}} </label>
+                        </div>
+                        <div class="ui-g-4">
+                            <input pInputText type="number" id="b-3"  [disabled]="disabled"   />
+                             <input type="hidden"  [(ngModel)]="location_details1.the_total_cost_to_the_customer" name="the_total_cost_to_the_customer" />
+
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-12 ui-lg-6 form-group">
+                        <div class="ui-g-6">
+                            <label for="done">{{'SAMPLE.Price Per Square Meter For The Worker' | translate}}</label>
+                        </div>
+                        <div class="ui-g-4">
+                            <input pInputText (keyup)="third()" id="c-1" type="number" [(ngModel)]="location_details1.price_per_square_meter_for_the_worker" name="price_per_square_meter_for_the_worker" />
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-12 ui-lg-6  form-group">
+                        <div class="ui-g-6">
+                            <label for="done">{{'SAMPLE.Total For Worker' | translate}}</label>
+                        </div>
+                        <div class="ui-g-4">
+                            <input pInputText type="number" id="c-3" [disabled]="disabled"  />
+                             <input type="hidden"   [(ngModel)]="location_details1.total_for_worker" name="total_for_worker"  />
+
+                        </div>
+                    </div>
+                    
+                             <input type="hidden"  [(ngModel)]="id " name="Location_detail_id">
+
+                       
+                    
+                </div>
+                <!--  footer of the table-->
+
+                <p-footer>
+                    <div class="ui-dialog-buttonpane ui-helper-clearfix ui-g-offset-2">
+                        <button type="submit" pButton icon="fa fa-check" class="ui-button-success" label="{{'SAMPLE.save' | translate}}"></button>
+                    </div>
+                </p-footer>
+            </form>
+        </p-dialog>
+        <!--  for edit forms-->
+
+        <p-dialog header=" Locations" [(visible)]="displayDialogforedit" [focusOnShow]="true" [responsive]="true"
+            showEffect="fade" [modal]="false" [style]="{width:'900px'}"[contentStyle]="{'overflow':'auto','max-height':'40rem'}"  >
+            <form class="form" #myForm="ngForm" (ngSubmit)='edit(myForm.value)'>
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-12 ui-md-12 ui-lg-6 form-group">
+                         
+                        <div class="ui-g-6">
+                            <label for="text">{{'SAMPLE.Name' | translate}} </label>
+                        </div>
+                        <div class="ui-g-4">
+                            <input pInputText   type="text"  [(ngModel)]="location_details1.band_name" name="band_name" />
+                        </div>
+                    </div>
+                         <div class="ui-g-12 ui-md-12 ui-lg-6 form-group">
+                            <div class="ui-g-6">
+                                <label for="text">{{'SAMPLE.Estimated Amount Of Assay' | translate}}</label>
+                            </div>
+                            <div class="ui-g-4">
+                                <input pInputText id="a1" type="number" [(ngModel)]="location_details1.estimated_amount_of_assay" name="estimated_amount_of_assay" />
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-6 form-group">
+
+                        <div class="ui-g-6">
+                            <label for="text">{{'SAMPLE.Price Per Square Meter' | translate}}</label>
+                        </div>
+                        <div class="ui-g-4">
+                            <input pInputText id="a2" class="b-2" (keyup)="first()" type="number" [(ngModel)]="location_details1.price_per_square_meter" name="price_per_square_meter" />
+                        </div>
+                    </div> 
+                    <div class="ui-g-12 ui-md-12 ui-lg-6  form-group">
+                        <div class="ui-g-6">
+                            <label for="done">{{'SAMPLE.Total Price In The Assay' | translate}}</label>
+                        </div>
+                        <div class="ui-g-4">
+                            <input pInputText   id="f1" [disabled]="disabled"  />
+                            <input type="hidden"  [(ngModel)]="location_details1.total_price_in_the_assay" name="total_price_in_the_assay">
+
+                        </div>
+                    </div>   
+                    <div class="ui-g-12 ui-md-12 ui-lg-6  form-group">
+                        <div class="ui-g-6">
+                            <label for="done">{{'SAMPLE.Actual Quantity' | translate}}</label>
+                        </div>
+                        <div class="ui-g-4">
+                            <input pInputText type="number" id="b-1" (keyup)="second()" [(ngModel)]="location_details1.actual_quantity" name="actual_quantity" />
+                        </div>
+                    </div>
+                   
+                    <div class="ui-g-12 ui-md-12 ui-lg-6  form-group">
+                        <div class="ui-g-6">
+                            <label for="done"> {{'SAMPLE.The Total Cost To The Customer' | translate}} </label>
+                        </div>
+                        <div class="ui-g-4">
+                            <input pInputText type="number" id="b-3"  [disabled]="disabled"     />
+                             <input type="hidden"  [(ngModel)]="location_details1.the_total_cost_to_the_customer" name="the_total_cost_to_the_customer" />
+
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-12 ui-lg-6 form-group">
+                        <div class="ui-g-6">
+                            <label for="done">{{'SAMPLE.Price Per Square Meter For The Worker' | translate}}</label>
+                        </div>
+                        <div class="ui-g-4">
+                            <input pInputText (keyup)="third()" id="c-1" type="number" [(ngModel)]="location_details1.price_per_square_meter_for_the_worker" name="price_per_square_meter_for_the_worker" />
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-12 ui-lg-6  form-group">
+                        <div class="ui-g-6">
+                            <label for="done">{{'SAMPLE.Total For Worker' | translate}}</label>
+                        </div>
+                        <div class="ui-g-4">
+                            <input pInputText type="number" id="c-3"  [disabled]="disabled"   />
+                             <input type="hidden"  [(ngModel)]="location_details1.total_for_worker" name="total_for_worker"  />
+
+                        </div>
+                    </div>
+                   
+                   
+                 
+                </div>
+                
+                <p-footer>
+                    <div class="ui-g-12 ">
+
+                    <div class="ui-dialog-buttonpane ui-helper-clearfix  ">
+                        <div class="ui-g-6">
+                            <button type="button" (click)="show()" pButton icon="pi pi-info-circle"
+                            class="ui-button-success" label="اضافة دفعة"></button>
+                      
+                    </div>
+                <div  class="ui-g-6">
+                            <button type="submit" pButton icon="fa fa-check" label="{{'SAMPLE.edit' | translate}}"  class="ui-button-warning">
+
+                            </button> &nbsp;&nbsp;&nbsp;
+                            <ng-container  *ngIf='admin.role=="SuperAdmin"'> 
+                         
+                                <button type="button" pButton icon="fas fa-times" class="ui-button-danger"  (click)="delete()" label="{{'SAMPLE.delete' | translate}}"
+                                    value="{{location_details1._id}}"></button> &nbsp;&nbsp;
+                                </ng-container>
+                           
+                        </div></div></div>
+                </p-footer>
+            </form>
+ 
+        </p-dialog>
+    </div>
+
+</div>
+<p-dialog header="أضافة دفعة للصنايعى " [(visible)]="displaay" [focusOnShow]="true"
+[responsive]="true" showEffect="fade" [modal]="false" [style]="{width: '40%'}">
+
+<form class="form" [formGroup]="paymentForm" (ngSubmit)='addpayment(paymentForm.value)'>
+    <div class="ui-g ui-fluid">
+
+        <div class="ui-g-12  form-group">
+            <div class="ui-g-4">
+                <label for="done"
+                    style="font-weight: bolder;">{{'SAMPLE.Payment' | translate}}
+                    :</label>
+            </div>
+
+            <div class="ui-g-6"  >
+                <input pInputText type="number" formControlName="worker_payments_for_now" />
+            </div>
+        </div>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix ui-g-offset-6 ">
+
+            <button type="submit"  pButton icon="fa fa-check"
+                label="اضافة" class="ui-button-warning"></button> &nbsp;&nbsp;&nbsp;
+        </div>
+    </div>
+</form>
+</p-dialog>

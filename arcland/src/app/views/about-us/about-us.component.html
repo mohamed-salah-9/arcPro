@@ -1,0 +1,169 @@
+<app-head>
+    <ng-container class="h2">about us</ng-container>
+    <ng-container class="p">home - <span class="-span">about us</span></ng-container>
+</app-head>
+
+<section class="container " style="padding-top: 12%; padding-bottom: 5%;">
+    <div class="row">
+        <div class="col-12 col-lg-6 pt-4 wow slideInLeft slow">
+            <p class="first-p">WHAT WE DO?</p>
+            <h2 class="first-h2 font-title pt-3">Design for life</h2>
+            <p class="font2 pt-3">It is considered one of the companies specialized in interior design, decorations,
+                landscape and architectural solutions since 2010 up till now.
+                We offer fresh and different ideas for residential and commercial designs, we work closely with our
+                clients throughout every stage of the design process.
+
+            </p>
+        </div>
+        <div class="col-12 col-lg-6 wow zoomIn">
+            <img src="assets/about/about1.jpg" width="100%" height="">
+        </div>
+    </div>
+</section>
+
+<!----
+<hr class="" align="center" width="80%">
+<section class="container" style="padding-top: 5%; padding-bottom: 5%;">
+    <div class="row">
+        <div class="col-12 col-lg-6 wow zoomIn">
+            <img src="assets/about/about2.jpg" width="100%" height="">
+        </div>
+        <div class="col-12 col-lg-6 pt-4 wow fadeInRight slow">
+            <p class="first-p">THE END RESULT</p>
+            <h2 class="first-h2 font-title pt-3">Making a better home</h2>
+            <p class="font2 pt-3">Collaboratively administrate empowered markets via plug-and-play networks. Dynamically
+                procrastinate B2C users after installed base benefits. Dramatically visualize customer directed
+                convergence without revolutionary ROI. Completely synergize resource taxing relationships via premier
+                niche markets.
+            </p>
+        </div>
+    </div>
+</section>
+
+<hr class="" align="center" width="80%">
+
+<section class="container" style="padding-top: 5%; padding-bottom: 5%;">
+    <div class="row">
+        <div class="col-12 col-lg-6 pt-4 wow slideInLeft slow">
+            <p class="first-p">THE ESSENCE OF INTERIOR DESIGN</p>
+            <h2 class="first-h2 font-title pt-3">Functionality first</h2>
+            <p class="font2 pt-3">Interactively procrastinate high-payoff content without backward-compatible data.
+                Quickly cultivate optimal processes and tactical architectures. Completely iterate covalent strategic
+                theme areas via accurate e-markets. Globally incubate standards compliant channels before scalable
+                benefits
+            </p>
+        </div>
+        <div class="col-12 col-lg-6 wow zoomIn">
+            <img src="assets/about/about1.jpg" width="100%" height="">
+        </div>
+    </div>
+</section>--->
+
+<!----clients---->
+<section class="about3">
+    <div class="container" style="padding-top:10% ; padding-bottom: 3%;">
+        <div class="col-12 col-lg-6 p-0">
+            <p>CONFIDING US</p>
+            <h2 class="about3-h2 font-title">Our  respectable clients</h2>
+            <p class="font2 about3-p"></p>
+        </div>
+        <div class="row pt-3">
+            <div class="col-6 col-lg-3  wow zoomIn" style="animation-delay:.5s;" *ngFor='let log of logo'>
+                <div class="card mb-3" style="border: none;">
+                    <div class="text-center">
+                        <img src="{{log.image}}" width="50%">
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+    </div>
+</section>
+
+<!---Services
+<section class="container-fluid" style="padding: 10% 5% 10% 5%;">
+    <div class="col-12 col-lg-6 p-0">
+        <p>WHAT ELSE DO WE DO</p>
+        <h2 class="services-h2 font-title">Services we can offer you</h2>
+        <p class="services-p font2">Enthusiastically mesh long-term high-impact infrastructures vis-a-vis efficient 
+            customer service. Professionally
+            fashion wireless leadership rather than prospective experiences.</p>
+    </div>
+    <div class="row pt-3">
+        <div class="col-12 col-lg-3 wow fadeInUp" style="animation-delay:.5s;">
+            <div class="card service-card mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col mx-auto text-center">
+                            <img src="assets/about/s1.png" width="40%">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12 text-left">
+                            <h4 class="service-card-h4">Interior Design</h4>
+                            <p class="service-card-p">Distinctively re-engineer revolutionary meta-services and premium
+                                architectures.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-3 wow fadeInUp" style="animation-delay:1s;">
+            <div class="card service-card mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col mx-auto text-center">
+                            <img src="assets/about/s2.png" width="40%">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12 text-left">
+                            <h4 class="service-card-h4">Architecture Design</h4>
+                            <p class="service-card-p">Distinctively re-engineer revolutionary meta-services and premium
+                                architectures.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-3 wow fadeInUp" style="animation-delay:1.5s;">
+            <div class="card service-card mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col mx-auto text-center">
+                            <img src="assets/about/s3.png" width="40%">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12 text-left">
+                            <h4 class="service-card-h4">Furniture And Accessories</h4>
+                            <p class="service-card-p">Distinctively re-engineer revolutionary meta-services and premium
+                                architectures.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-3 wow fadeInUp" style="animation-delay:2s;">
+            <div class="card service-card mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col mx-auto text-center">
+                            <img src="assets/about/s4.png" width="40%">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12 text-left">
+                            <h4 class="service-card-h4">Landscape</h4>
+                            <p class="service-card-p">Distinctively re-engineer revolutionary meta-services and premium
+                                architectures.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>--->
+
+
+<!---contact--->

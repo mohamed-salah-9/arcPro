@@ -1,0 +1,16 @@
+<section class="container-fluid" style="box-shadow: 0px 4px 12px 0px black;">
+  <div class="row">
+      <div class="col-sm-12 col-12 col-md-6 col-lg-4 p-0 overflow-hidden overlay-card zoom" *ngFor='let img of imagess'>
+          <div *ngFor='let imgs of img.images; let i = index;'>
+              <div  *ngIf="i == 0">
+                <img class="overlay-img img-fluid" src="{{imgs}}" width="100%" style="height:350px !important;">
+              </div>
+          </div>
+          <div class="overlay-c "></div>
+          <div class="overlay-div ">
+              <h6 class="overlay-card-div-h6">{{img.title}}</h6>
+              <a routerLink="photo/{{img._id}}"  class="overlay-card-div-a btn rounded-pill">VIEW</a>
+          </div>
+      </div>
+  </div>
+</section>

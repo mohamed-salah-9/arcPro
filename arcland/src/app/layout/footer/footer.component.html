@@ -1,0 +1,46 @@
+<section class="footer">
+    <div class="container pt-5">
+        <h2 class="text-light font-weight-bolder pt-4 footer-h2">arcland</h2>
+        <hr class="footer-line mt-5" align="center" width="100%">
+        <div class="row pt-5">
+            <div class="col-12 col-lg-4">
+                <h3 class="font-weight-bolder text-light footer-h3">In short</h3>
+                <hr class="footer-line1 mt-5" align="left" width="25%">
+                <p class="text-light footer-p pt-3"> We considered one of the companies specialized in interior design,
+                    decorations, landscape and architectural solutions since 2011 uptill now. We will continue with our
+                    respectable customers and thier support.</p>
+                <div class="pt-1">
+                    <ul class="nav justify-content-center text-light">
+                        <li class=""><a class="text-light" href="https://www.facebook.com/Arcland2" target="_blank"><i
+                                    class="fab fa-facebook fa-2x"></i></a></li>
+                        <li class="ml-2"><a class="text-light" href="https://www.instagram.com/arclandegypt/?hl=en"
+                                target="_blank"><i class="fab fa-instagram fa-2x"></i></a></li>
+                        <li class="ml-2"><i class="fab fa-youtube fa-2x"></i></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-12 col-lg-4">
+                <h3 class="font-weight-bolder text-light footer-h3">Contact</h3>
+                <hr class="footer-line1 mt-5" align="left" width="25%">
+                <ul class="footer-ul pt-3" *ngFor='let det of WebDet'>
+                    <li class="footer-li"><i class="fas fa-map-marker-alt"></i> {{det.address}}</li>
+                    <li class="footer-li pt-2"><i class="fas fa-phone-alt"></i> {{det.phone1}}</li>
+                    <li class="footer-li pt-2"><i class="fas fa-phone-alt"></i> {{det.phone2}}</li>
+                    <li class="footer-li pt-2"><i class="fas fa-envelope-open"></i> {{det.email1}}</li>
+                    <li class="footer-li pt-2"><i class="fas fa-envelope-open"></i> {{det.email2}}</li>
+                </ul>
+                <a></a>
+            </div>
+            <div class="col-12 col-lg-4">
+                <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1726.8474540471616!2d31.342891308617872!3d30.045609494717066!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14583e880d94e719%3A0xe0fa6e7a3b7499a1!2zMSDYrNmF2KfZhCDYp9mE2K_ZitmGINiv2YjZitiv2KfYsdiMINmF2K_ZitmG2Kkg2YbYtdix2Iwg2YXYrdin2YHYuNipINin2YTZgtin2YfYsdip4oCs!5e0!3m2!1sar!2seg!4v1595431659972!5m2!1sar!2seg"
+                width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false"
+                tabindex="0"></iframe>
+            </div>
+        </div>
+
+        <hr class="footer-line mt-5" align="center" width="100%">
+        <p class="text-light footer-c">Copyright &copy; by mohamed salah. All rights reserved.</p>
+    </div>
+</section>
+

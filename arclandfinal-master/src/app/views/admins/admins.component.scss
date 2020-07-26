@@ -1,0 +1,17 @@
+:host {
+  .secondary-text{
+    font-size: 1.7rem !important;
+    color: rgb(114, 52, 52);
+}
+    .content{
+        max-width: 1600px;
+    }
+    .tt {
+        counter-reset: section   ;
+      }
+      
+    .count:before {
+        counter-increment: section ;
+        content: counter(section);
+      }
+}

@@ -1,0 +1,36 @@
+
+.toggler-header{
+  background-color: rgba(252, 253, 253, 0.42);
+  border: black;
+}
+.toggler-ul{
+  
+}
+.ancor-header{
+  color: #191a1e;
+}
+.header{
+    transition: .5s;
+     background-color: #ffffffe3;
+}
+.h1-header{
+    font-family: "Montserrat";
+    color: #191a1e;
+    font-size: 25px; 
+    text-transform: uppercase;
+    font-weight: bolder;
+}
+.ancor-header:hover{
+  color: #CD6155 !important;
+}
+.ancor-header:focus { 
+  color: #CD6155 !important;
+}
+.ancor-header:active{
+  color: #CD6155 !important;
+}
+.font{
+    font-family: "Montserrat";
+    text-transform: uppercase;
+}
+

@@ -1,0 +1,57 @@
+      <!-- -->
+<div id="login" fxLayout="column">
+    <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+          
+        <div id="login-form" [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
+
+            <div class="logo">
+               
+                <img src="assets/images/logos/fuse.svg">
+            </div>
+            
+            <div class="title">LOGIN TO YOUR ACCOUNT</div>
+
+            <form name="loginForm" [formGroup]="loginForm"  (ngSubmit)=' loginUser()'  >
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"   >
+                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+
+                    <p-message severity="error" text="email is required" *ngIf="!loginForm.controls['email'].valid&&loginForm.controls['email'].dirty"></p-message></div>
+
+                 </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input matInput    type="password" formControlName="password" autocomplete="on" >
+                    <mat-icon matSuffix class="secondary-text" >vpn_key</mat-icon>
+                    
+                    <p-message severity="error" [text]="loginForm.controls['password'].errors['required'] ? 'Password is required' : loginForm.controls['password'].errors['minlength'] ? 'Must be longer than 6 characters' : ''" 
+                        *ngIf="!loginForm.controls['password'].valid&&loginForm.controls['password'].dirty"></p-message>
+                 </mat-form-field>
+                 <div class="row">
+                    <div  >
+                        <app-alert></app-alert>
+                     </div>
+                </div> 
+                <div class="remember-forgot-password" fxLayout="row" fxLayout.xs="column"
+                     fxLayoutAlign="space-between center">
+                    
+
+                    <a  [routerLink]="'/request-password'" class="text-right col-6 theme-link">lost your password</a>
+
+                </div>
+
+                <button mat-raised-button color="accent" class="submit-button" aria-label="LOG IN"
+                        [disabled]="loginForm.invalid">
+                    LOGIN
+                </button>
+ 
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

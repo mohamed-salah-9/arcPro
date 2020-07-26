@@ -1,0 +1,72 @@
+.overlay-card{
+  position: relative;
+}
+.overlay-div {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 10;
+}
+.overlay-div:after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  background-color: #202020;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  z-index: -10;
+  left: 0;
+  transition: all .3s ease;
+}
+.overlay-card-div-h6{
+  position: relative;
+  top: -200px;
+  margin-bottom: 1rem;
+  margin-top: 7rem;
+  font-size: 1.25rem;
+  font-family: 'Oswald';
+  font-weight: 100;
+  color: white;
+  text-align: center;
+  letter-spacing: 4px;
+  transition: all 0.3s cubic-bezier(0.3, 0, 0, 1.3);
+}
+.overlay-card-div-a {
+  position: relative;
+  display: block;
+  width: 40%;
+  top: 200px;
+  padding: 10px;
+  margin: 7% auto;
+  font-family: 'Oswald';
+  color: white;
+  letter-spacing: 3px;
+  text-decoration: none;
+  text-align: center;
+  border: 2px solid white;
+  border-radius: 3px;
+  font-size: 1.25em;
+  transition: all 0.3s cubic-bezier(0.3, 0, 0, 1.3);
+}
+.overlay-card-div-a:hover {
+  background-color: white;
+  color: #202020;
+}
+.overlay-card:hover .overlay-card-div-h6{
+  top: 0;
+}
+.overlay-card:hover .overlay-card-div-a{
+  top: 0;
+}
+.overlay-card:hover .overlay-div:after{
+  opacity: .75;
+} 
+.overlay-img{
+  transition: all 1s;
+}
+.zoom:hover .overlay-img,
+.zoom:focus .overlay-img {
+transform: scale(1.2);
+}

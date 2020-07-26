@@ -1,0 +1,173 @@
+<div id="ngx-datatable" class="page-layout simple fullwidth docs">
+
+    <!-- CONTENT -->
+    <div class="content pr-20 ">
+        <p-table #dt [columns]="cols" [value]="bills" [scrollable]="true" scrollHeight="41rem" [responsive]="true"
+            [resizableColumns]="true" selectionMode="single" [(selection)]="bills1" (onRowSelect)="onRowSelect($event)"
+            [paginator]="true" [rows]="25" class="tt">
+            <!-- export  with pdf , execl, cvs -->
+
+            <ng-template pTemplate="caption">
+                <div class="ui-helper-clearfix" style="text-align: left">
+                    <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL"
+                        (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button>
+                        <ng-container *ngFor="let location of location">
+
+                    <span *ngIf="location._id==url_id" class="secondary-text" style="margin-left:30%;">
+                        {{'SAMPLE.Arcland Locations Bills' | translate}} :  {{location.location}} </span>
+                    </ng-container>
+
+                        <button type="button" pButton class="ui-button-success" iconPos="left" style="float:right"
+                        icon="fa fa-plus" (click)="showDialogToAdd()" label="{{'SAMPLE.add' | translate}}"></button>
+
+
+                </div>
+            </ng-template>
+            <ng-template pTemplate="colgroup" let-columns>
+                <colgroup>
+                    <col *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th id="no ">{{'SAMPLE.ID' | translate}} </th>
+                    <th> {{'SAMPLE.Band' | translate}} </th>
+
+                    <th>{{'SAMPLE.Material Price' | translate}} </th>
+                    <th>{{'SAMPLE.Bill' | translate}} </th>
+                    <th>{{'SAMPLE.Company Diffrnece' | translate}} </th>
+
+                    <th>{{'SAMPLE.Date' | translate}} </th>
+                <tr>
+                    <!--search for each feilds -->
+                    <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                        <input *ngSwitchCase="'band'" pInputText type="text"
+                            (input)="dt.filter($event.target.value, col.field, 'contains')">
+
+                </tr>
+            </ng-template>
+            <!-- data from database -->
+
+            <ng-template pTemplate="body" let-i="rowIndex" let-rowData let-bills class="ui-resizable-column"
+                let-columns="bills">
+                <tr [pSelectableRow]="bills">
+
+                    <ng-container *ngIf="bills.bills_id==id  ">
+                        <td class="count"> </td>
+                        <td> {{bills.band}}</td>
+
+                        <td> {{bills.material_price}} </td>
+
+                        <td> {{bills.bill}}</td>
+                        <ng-container *ngFor='let company of company'>
+                            <td *ngIf="bills._id == company._id ">{{ company.value }}</td>
+                        </ng-container>
+                        <td> {{bills.date | date:'fullDate'}}</td>
+                    </ng-container>
+
+                </tr>
+            </ng-template>
+
+        </p-table>
+
+        <!--  for add forms-->
+
+        <p-dialog header=" {{'SAMPLE.Bill' | translate}}" [(visible)]="displayDialogforadd" [focusOnShow]="true"
+            [responsive]="true" showEffect="fade" [modal]="false" styleClass="mydialog">
+            <form class="form" #myform="ngForm" (ngSubmit)='save(myform.value)'>
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-12 ui-md-12 ui-lg-6 form-group">
+                        <div class="ui-g-6">
+                            <label for="text">{{'SAMPLE.Band' | translate}} </label>
+                        </div>
+                        <div class="ui-g-6">
+                            <input pInputText type="text" [(ngModel)]="bills1.band" name="band" />
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-12 ui-lg-6 form-group">
+
+                        <div class="ui-g-6">
+                            <label for="text">{{'SAMPLE.Material Price' | translate}}</label>
+                        </div>
+                        <div class="ui-g-6">
+                            <input pInputText type="number" [(ngModel)]="bills1.material_price" name="material_price" />
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-12 ui-lg-6 form-group">
+                        <div class="ui-g-6">
+                            <label for="done">{{'SAMPLE.Bill' | translate}}</label>
+                        </div>
+                        <div class="ui-g-6">
+                            <input type="hidden" [(ngModel)]=" id " name="bills_id">
+
+                            <input pInputText type="number" [(ngModel)]="bills1.bill" name="bill" />
+                        </div>
+                    </div>
+
+
+                </div>
+                <!--  footer of the table-->
+
+                <p-footer>
+                    <div class="ui-dialog-buttonpane ui-helper-clearfix ui-g-offset-3">
+                        <button type="submit" pButton icon="fa fa-check" class="ui-button-success"
+                            label="{{'SAMPLE.save' | translate}}"></button>
+                    </div>
+                </p-footer>
+            </form>
+        </p-dialog>
+        <!--  for edit forms-->
+
+        <p-dialog header=" {{'SAMPLE.Bill' | translate}}" [(visible)]="displayDialogforedit" [focusOnShow]="true"
+            [responsive]="true" showEffect="fade" [modal]="false" styleClass="mydialog">
+            <form class="form" #myForm="ngForm" (ngSubmit)='edit(myForm.value)'>
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-12 ui-md-12 ui-lg-6  form-group">
+                        <div class="ui-g-6">
+                            <label for="text">{{'SAMPLE.Band' | translate}} </label>
+                        </div>
+                        <div class="ui-g-6">
+                            <input pInputText type="text" [(ngModel)]="bills1.band" name="band" />
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-12 ui-lg-6  form-group">
+
+                        <div class="ui-g-6">
+                            <label for="text">{{'SAMPLE.Material Price' | translate}}</label>
+                        </div>
+                        <div class="ui-g-6">
+                            <input pInputText type="number" [(ngModel)]="bills1.material_price" name="material_price" />
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-12 ui-lg-6   form-group">
+                        <div class="ui-g-6">
+                            <label for="done">{{'SAMPLE.Bill' | translate}}</label>
+                        </div>
+                        <div class="ui-g-6">
+                            <input pInputText type="number" [(ngModel)]="bills1.bill" name="bill" />
+                            <input type="hidden" [(ngModel)]=" id " name="bills_id">
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <p-footer>
+                    <div class="ui-dialog-buttonpane ui-helper-clearfix  ui-g-offset-7 ">
+                        <ng-container *ngIf='admin.role=="SuperAdmin"'> <button type="button" pButton
+                                icon="fas fa-times" class="ui-button-danger" (click)="delete()"
+                                label="{{'SAMPLE.delete' | translate}}" value="{{bills1._id}}"></button> &nbsp;&nbsp;
+                        </ng-container>
+                        <button type="submit" pButton icon="fa fa-check" label="{{'SAMPLE.edit' | translate}}"
+                            class="ui-button-warning">
+
+                        </button> &nbsp;&nbsp;&nbsp;
+                    </div>
+                </p-footer>
+            </form>
+
+        </p-dialog>
+    </div>
+
+</div>

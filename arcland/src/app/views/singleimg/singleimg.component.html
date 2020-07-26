@@ -1,0 +1,17 @@
+<app-head>
+    <ng-container class="h2">{{imagess?.title}}</ng-container>
+    <ng-container class="p">home - <span class="-span"
+        style="color: #CD6155; word-spacing: 0 !important;">portfolio</span></ng-container>
+</app-head> 
+
+
+<div class="container-fluid">
+    <div class="portfolio-item row">
+        <div class="item selfie col-lg-4 col-md-4 col-12 col-sm" *ngFor='let imgs of imagess?.images;'>
+            <a  class="link-gallery ">
+                <img class="img-fluid zoom " src="{{imgs}}" alt="">
+            </a>
+        </div>
+    </div>  
+</div>
+

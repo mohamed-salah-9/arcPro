@@ -1,0 +1,120 @@
+<app-head>
+  <ng-container class="h2">contact us</ng-container>
+  <ng-container class="p">home - <span class="-span">contact</span></ng-container>
+</app-head>
+
+<div style="background-color: #eeeeee;">
+
+
+  <section class="container contact-form">
+    <div class="row">
+      <div class="col-12 col-lg-4">
+        <img src="assets/contact/contact1.png" width="100%">
+        <!---
+        <div class="row">
+          <div class="col-4 col-lg-4">
+            <i class="fas fa-location-arrow"></i>
+            <h6>main office</h6>
+            <p> Abbas El-Akkad, Al Manteqah Al Oula, Nasr City</p>
+          </div>
+          <div class="col-4 col-lg-4">
+            <i class="fas fa-location-arrow"></i>
+            <h6>main office</h6>
+            <p> Abbas El-Akkad, Al Manteqah Al Oula, Nasr City</p>
+          </div>
+          <div class="col-4 col-lg-4">
+            <i class="fas fa-location-arrow"></i>
+            <h6>main office</h6>
+            <p> Abbas El-Akkad, Al Manteqah Al Oula, Nasr City</p>
+          </div>
+        </div>--->
+      </div>
+      <div class="col-12 col-lg-8">
+        <form #myForm="ngForm" (ngSubmit)='send(myForm.value);myForm.reset()'>
+          <div *ngIf="!showMyContainer" class="form-row">
+            <div class="form-group col-md-6 mb-3">
+              <label class="label-s" for="exampleInputEmail1">Name</label>
+              <input type="text" class="form-control" ngModel name="name" #name="ngModel" required>
+              <div class="error-s" *ngIf="name.invalid && name.touched">
+                Please enter your name
+              </div>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+              <label class="label-s" for="exampleInputEmail1">Mobile</label>
+              <input type="text" class="form-control" id="inputPhone" ngModel name="mobile" #mobile="ngModel" required
+                [pattern]="mobNumberPattern">
+              <div class="error-s" *ngIf="mobile.errors?.required && mobile.touched">
+                Please enter your phone number
+              </div>
+              <div class="error-s" *ngIf="mobile.errors?.pattern">
+                Mobile number not valid.
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!showMyContainer" class="form-group mb-3">
+            <label class="label-s" for="exampleInputEmail1">Email</label>
+            <input type="text" class="form-control" id="inputEmail" ngModel name="email" #email="ngModel" required
+              email>
+            <div class="error-s" *ngIf="email.errors?.required && email.touched">
+              Please enter your email
+            </div>
+            <div class="error-s" *ngIf="email.errors?.email && email.touched">
+              Invalid email
+            </div>
+          </div>
+          <div *ngIf="!showMyContainer" class="form-row ">
+            <div class="form-group col-md-4 mb-3">
+              <label class="label-s" for="exampleInputEmail1">Unit type</label>
+              <select id="inputState" class="form-control" ngModel name="unit_type" #unit_type="ngModel" required>
+                <option>resedental</option>
+                <option>adminstrative</option>
+                <option>commercial</option>
+                <option>industrial</option>
+              </select>
+            </div>
+
+
+            <div class="form-group col-md-2 mb-3">
+              <label class="label-s" for="exampleInputEmail1">Total Area </label>
+
+              <input type="number" class="form-control" id="inputZip" ngModel name="total_area" #total_area="ngModel"
+                required>
+              <div class="error-s" *ngIf="total_area.errors?.required && total_area.touched">
+                this is required
+              </div>
+            </div>
+
+            <div class="form-group col-md-6 mb-3">
+              <label class="label-s" for="exampleInputEmail1">Unit location</label>
+
+              <input type="text" class="form-control" id="inputCity" ngModel name="unit_locations"
+                #unit_locations="ngModel" required>
+              <div class="error-s" *ngIf="unit_locations.errors?.required && unit_locations.touched">
+                this is required
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!showMyContainer" class="form-group p-0 col-md-6 mb-3">
+            <label class="label-s" for="exampleInputEmail1">Best time to contacting</label>
+
+            <input type="text" class="form-control" id="inputName" ngModel name="best_time" #best_time="ngModel"
+              required>
+            <div class="error-s" *ngIf="best_time.errors?.required && best_time.touched">
+              this is required
+            </div>
+          </div>
+
+          <div *ngIf="showMyContainer" class="alert alert-primary" role="alert">
+            DONE THINK YOU <i class="far fa-grin-hearts fa-2x"></i> <i class="far fa-grin-hearts fa-2x"></i>
+          </div>
+          <a *ngIf="showMyContainer" style="color: white;" (click)="showMyContainer=!showMyContainer"
+            class="btn btn-primary mb-5 rounded-pill pl-4 pr-4 font-weight-bolder">back</a>
+
+          <button *ngIf="!showMyContainer" type="submit" class="btn btn-primary" [disabled]="myForm.invalid"
+            class="btn btn-primary mb-5 rounded-pill pl-4 pr-4 font-weight-bolder">SEND</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</div>

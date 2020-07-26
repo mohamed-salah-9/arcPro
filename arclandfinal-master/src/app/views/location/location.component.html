@@ -1,0 +1,374 @@
+<div id="ngx-datatable" class="page-layout simple fullwidth docs">
+
+    <!-- HEADER -->
+
+
+    <!-- / HEADER -->
+    <!-- CONTENT -->
+    <div class="content pt-15 pr-20 ">
+
+        <p-table #dt [columns]="cols" [scrollable]="true" scrollHeight="43rem" [value]="locations" [responsive]="true"
+            [resizableColumns]="true" selectionMode="single" [(selection)]="location1"
+            (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="15" class="tt" [scrollable]="true">
+            <!-- export  with pdf , execl, cvs -->
+
+            <ng-template pTemplate="caption">
+
+                <div class="ui-helper-clearfix" style="text-align: left">
+                    <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL"
+                        (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button>
+                    <span class="secondary-text"
+                        style="margin-left:30%;">{{'SAMPLE.Arcland Locations' | translate}}</span>
+                    <button type="button" pButton icon="fa fa-plus" iconPos="left" style="float:right"
+                        (click)="showDialogToAdd()" label="{{'SAMPLE.add' | translate}}"
+                        class="ui-button-success"></button>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="colgroup" let-columns>
+
+                <colgroup>
+                    <col *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+                </colgroup>
+
+            </ng-template>
+
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+
+                    <th>{{'SAMPLE.ID' | translate}} </th>
+                    <th>{{'SAMPLE.Location' | translate}} </th>
+                    <th>{{'SAMPLE.Bussniess' | translate}} </th>
+                    <th>{{'SAMPLE.Degree Of Progress' | translate}} </th>
+                    <th>{{'SAMPLE.Completion Rate' | translate}} </th>
+                    <th>{{'SAMPLE.Payment' | translate}}</th>
+                    <th>{{'SAMPLE.Total Actual Expenses' | translate}}</th>
+                    <th>{{'SAMPLE.Required Payment' | translate}}</th>
+                    <th>{{'SAMPLE.Total Fees' | translate}}</th>
+                    <th>{{'SAMPLE.Fees Until Now' | translate}}</th>
+                    <th>{{'SAMPLE.Supervision Fees Required' | translate}}</th>
+                    <th>{{'SAMPLE.Winning' | translate}}</th>
+                    <th>{{'SAMPLE.By' | translate}} </th>
+
+
+                <tr>
+                    <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                        <input *ngSwitchCase="'location'" pInputText type="text" class="filter"
+                            (input)="dt.filter($event.target.value, col.field, 'contains')">
+
+
+                    </th>
+                </tr>
+            </ng-template>
+            <!-- data from database -->
+            <ng-template pTemplate="body" let-i="rowIndex" let-rowData let-locations class="ui-resizable-column"
+                let-columns="locations">
+                <tr [pSelectableRow]="locations">
+
+                    <!-- </ng-container> -->
+                    <!-- </ng-container> -->
+
+                    <td id="no " class="ui-p-1">{{ i + 1 }} </td>
+                    <td class="ui-p-12"> {{locations.location}} </td>
+                    <ng-container *ngFor='let bussiness of bussiness'>
+                        <td *ngIf="locations.bussines_id==bussiness._id">{{bussiness.name}}</td>
+                    </ng-container>
+                    <td> {{locations.degree_of_progress}}</td>
+                    <td> {{locations.completion_rate}}%</td>
+                    <td>
+                        <li style="list-style-type: none;" *ngFor='let payment of locations.payment'> {{payment.values}}
+                            ج.م
+                        </li>
+                        <hr>
+                        <ng-container *ngFor='let all_total_payment of all_total_payment'>
+
+                            <ng-container *ngIf="locations._id==all_total_payment._id">{{ all_total_payment.total_pays}}
+                                ج.م</ng-container>
+                            <!-- <ng-container *ngIf="locations._id!=total._id">0 </ng-container>  -->
+                        </ng-container>
+                    </td>
+                    <td>
+                        <ng-container *ngFor="let total of total">
+
+                            <ng-container *ngIf="locations._id==total._id">{{ total.value}} ج.م</ng-container>
+
+                            <!-- <ng-container *ngIf="locations._id!=total._id">0 </ng-container>  -->
+                        </ng-container>
+                    </td>
+                    <td>
+                        <ng-container *ngFor="let all_total_payment of all_total_payment">
+
+                            <ng-container *ngIf="locations._id==all_total_payment._id">{{ all_total_payment.value}} ج.م
+                            </ng-container>
+                            <!-- <ng-container *ngIf="locations._id!=total._id">0 </ng-container>  -->
+                        </ng-container>
+                    </td>
+                    <td> {{locations.total_fees}} ج.م</td>
+                    <td> {{locations.fees_until_now}} ج.م</td>
+
+                    <ng-container *ngFor='let supervision_fees of supervision_fees'>
+                        <td *ngIf="locations._id == supervision_fees._id ">{{ supervision_fees.value }} ج.م</td>
+                    </ng-container>
+                    <td>
+                        <ng-container *ngFor="let winning of winning">
+
+                            <ng-container *ngIf="locations._id==winning._id">{{ winning.value}} ج.م
+                            </ng-container>
+                            <!-- <ng-container *ngIf="locations._id!=total._id">0 </ng-container>  -->
+                        </ng-container>
+                    </td>
+                    <ng-container *ngFor='let admin of admins'>
+                        <td *ngIf="locations.admin_id==admin._id">{{admin.fullname}}</td>
+                        <!-- <td *ngIf="locations.admin_id!==admin._id">BY None</td> -->
+                    </ng-container>
+                </tr>
+            </ng-template>
+
+        </p-table>
+
+        <!--  for add forms-->
+
+        <p-dialog header=" Locations" [(visible)]="displayDialogforadd" [focusOnShow]="true" showEffect="fade"
+            [modal]="false" [responsive]="true" [style]="{width: '60%'}"
+            [contentStyle]="{'overflow':'auto','max-height':'40rem'}">
+            <form class="form" [formGroup]="productForm" (ngSubmit)='save(productForm.value)'>
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-12 ui-md-12 ui-lg-6 form-group">
+                        <div class="ui-g-4 ">
+
+                            <label for="text">{{'SAMPLE.Location' | translate}}</label>
+                        </div>
+                        <div class="ui-g-6">
+                            <input pInputText type="text" formControlName="location" />
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-12 ui-lg-6 form-group">
+
+                        <div class="ui-g-4">
+                            <label for="text">{{'SAMPLE.Bussniess' | translate}}</label>
+                        </div>
+                        <div class="ui-g-6">
+                            <p-dropdown [options]="bussiness" ngModel="bussiness._id" name="bussines_id"
+                                optionLabel="name" [showClear]="true" placeholder="Select bussiness"
+                                formControlName="bussines_id" required="true">
+                            </p-dropdown>
+
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-12 ui-lg-6  form-group">
+                        <div class="ui-g-4">
+                            <label for="done">{{'SAMPLE.Degree Of Progress' | translate}} </label>
+                        </div>
+                        <div class="ui-g-6">
+                            <input pInputText type="text" formControlName="degree_of_progress" />
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-12 ui-lg-6  form-group">
+                        <div class="ui-g-4">
+                            <label for="done">{{'SAMPLE.Completion Rate' | translate}} </label>
+                        </div>
+                        <div class="ui-g-6">
+                            <input pInputText type="number" formControlName="completion_rate" />
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-12 ui-lg-6  form-group">
+
+                        <div class="ui-g-4">
+                            <label for="done">{{'SAMPLE.Payment' | translate}}</label>
+                        </div>
+                        <div class="ui-g-6" formGroupName="payment">
+                            <input pInputText type="number" formControlName="values" />
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-12 ui-lg-6  form-group">
+                        <div class="ui-g-4">
+                            <label for="done">{{'SAMPLE.Total Fees' | translate}}</label>
+                        </div>
+                        <div class="ui-g-6">
+                            <input pInputText type="number" formControlName="total_fees" />
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-12 ui-lg-6  form-group">
+                        <div class="ui-g-4">
+                            <label for="done">{{'SAMPLE.Fees Until Now' | translate}}</label>
+                        </div>
+                        <div class="ui-g-6">
+                            <input pInputText type="number" formControlName="fees_until_now" />
+                        </div>
+                    </div>
+
+                </div>
+                <!--  footer of the table-->
+
+                <p-footer>
+                    <div class="ui-dialog-buttonpane ui-helper-clearfix ui-g-offset-5">
+                        <button type="submit" pButton icon="fa fa-check" class="ui-button-success"
+                            label="{{'SAMPLE.save' | translate}}"></button>
+                    </div>
+                </p-footer>
+            </form>
+        </p-dialog>
+        <!--  for edit forms-->
+
+        <p-dialog header=" Locations" [(visible)]="displayDialogforedit" [focusOnShow]="true" [responsive]="true"
+            showEffect="fade" [modal]="false" [style]="{width: '60%'}"
+            [contentStyle]="{'overflow':'auto','max-height':'40rem'}">
+            <form class="form" #myForm="ngForm" (ngSubmit)='edit(myForm.value)'>
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-12 ui-md-12 ui-lg-6 form-group">
+                        <div class="ui-g-4">
+
+                            <label for="text">{{'SAMPLE.Location' | translate}}</label>
+                        </div>
+                        <div class="ui-g-6">
+                            <input pInputText type="text" [(ngModel)]="location1.location" name="location" />
+                        </div>
+                    </div>
+                    <!-- <div class="ui-g-12 ui-md-12 ui-lg-6 form-group">
+
+                        <div class="ui-g-4">
+                            <label for="text">{{'SAMPLE.Bussniess' | translate}}</label>
+                        </div>
+                        <div class="ui-g-6">
+                            <p-dropdown [options]="bussiness" ngModel="bussiness._id" name="bussines_id"
+                                optionLabel="name" [showClear]="true"  > </p-dropdown>
+                        </div>
+                    </div> -->
+                    <div class="ui-g-12 ui-md-12 ui-lg-6  form-group">
+                        <div class="ui-g-4">
+                            <label for="done">{{'SAMPLE.Degree Of Progress' | translate}} </label>
+                        </div>
+                        <div class="ui-g-6">
+                            <input pInputText type="text" [(ngModel)]="location1.degree_of_progress"
+                                name="degree_of_progress" />
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-12 ui-lg-6 form-group">
+                        <div class="ui-g-4">
+                            <label for="done">{{'SAMPLE.Completion Rate' | translate}} </label>
+                        </div>
+                        <div class="ui-g-6">
+                            <input pInputText type="number" [(ngModel)]="location1.completion_rate"
+                                name="completion_rate" />
+                        </div>
+                    </div>
+                    <!-- <div class="ui-g-6  form-group">
+                   <div class="ui-g-6">
+                       <label for="done">{{'SAMPLE.Payment' | translate}}</label>
+                   </div>
+                   <div class="ui-g-4">
+                       <input pInputText type="number" [(ngModel)]="location1.payment" name="payment" />
+                   </div>
+               </div> -->
+                    <!-- <div class="ui-g-6  form-group">
+                   <div class="ui-g-6">
+                       <label for="done">{{'SAMPLE.Total Actual Expenses' | translate}}</label>
+                   </div>
+                   <div class="ui-g-4">
+                       <input pInputText type="number" [(ngModel)]="location1.total_actual_expenses" name="total_actual_expenses" />
+                   </div>
+               </div>   -->
+                    <!-- <div class="ui-g-6  form-group">
+                   <div class="ui-g-6">
+                       <label for="done">{{'SAMPLE.Required Payment' | translate}}</label>
+                   </div>
+                   <div class="ui-g-4">
+                       <input pInputText type="number" [(ngModel)]="location1.required_payment" name="required_payment" />
+                   </div>
+               </div> -->
+                    <div class="ui-g-12 ui-md-12 ui-lg-6  form-group">
+                        <div class="ui-g-4">
+                            <label for="done">{{'SAMPLE.Total Fees' | translate}}</label>
+                        </div>
+                        <div class="ui-g-6">
+                            <input pInputText type="number" [(ngModel)]="location1.total_fees" name="total_fees" />
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-12 ui-lg-6  form-group">
+                        <div class="ui-g-4">
+                            <label for="done">{{'SAMPLE.Fees Until Now' | translate}}</label>
+                        </div>
+                        <div class="ui-g-6">
+                            <input pInputText type="number" [(ngModel)]="location1.fees_until_now"
+                                name="fees_until_now" />
+                        </div>
+                    </div>
+
+                </div>
+                <p-footer>
+                    <div class="ui-g-12  form-group">
+
+                        <div class="ui-g-12  ui-md-12 ui-lg-6">
+                            <div class="ui-g-6  ui-md-6 ui-lg-8">
+                                <button type="button" (click)="showDialog()" pButton icon="pi pi-info-circle"
+                                    label="الانتقال للمشتريات وتفاصيل المواقع"></button>
+                            </div>
+                            <div class="ui-g-6  ui-md-6 ui-lg-4">
+                                <button type="button" (click)="show()" pButton icon="pi pi-info-circle"
+                                    class="ui-button-success" label="اضافة دفعة"></button></div>
+                            <!--        فورمه الانتقال للفواتير وتفاصيل الموقع                  -->
+
+                            <p-dialog header="Location information" [(visible)]="display" [style]="{width: '40%'}">
+                                <div class="ui-g-12  form-group">
+                                    <div class="ui-g-6">
+                                        <a routerLink="/location_details/{{location1._id}}"> <button type="submit"
+                                                pButton icon="fa fa-check" label="تفاصيل المواقع"></button></a><br><br>
+                                    </div>
+                                    <div class="ui-g-5 ui-g-offset-1">
+                                        <a routerLink="/bills/{{location1._id}}"> <button type="submit"
+                                                class="ui-button-warning" pButton icon="fa fa-check"
+                                                label="المشتريات"></button></a>
+                                    </div>
+                                </div>
+                            </p-dialog>
+
+
+                            <!--                      فورمه اضافة دفعة جديده        -->
+                            <p-dialog header=" أضافة دفعة" [(visible)]="displaay" [focusOnShow]="true"
+                                [responsive]="true" showEffect="fade" [modal]="false" [style]="{width: '40%'}">
+
+                                <form class="fform" [formGroup]="paymentForm"
+                                    (ngSubmit)='addpayment(paymentForm.value)'>
+                                    <div class="ui-g ui-fluid">
+
+                                        <div class="ui-g-12  form-group">
+                                            <div class="ui-g-4">
+                                                <label for="done"
+                                                    style="font-weight: bolder;">{{'SAMPLE.Payment' | translate}}
+                                                    :</label>
+                                            </div>
+
+                                            <div class="ui-g-6" formGroupName="payment">
+                                                <input pInputText type="number" formControlName="values" />
+                                            </div>
+                                        </div>
+                                        <div class="ui-dialog-buttonpane ui-helper-clearfix ui-g-offset-6 ">
+
+                                            <button type="submit" value="{{location1._id}}" pButton icon="fa fa-check"
+                                                label="اضافة" class="ui-button-warning"></button> &nbsp;&nbsp;&nbsp;
+                                        </div>
+                                    </div>
+                                </form>
+                            </p-dialog>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-4 ui-lg-offset-2">
+                            <div class="ui-dialog-buttonpane ui-helper-clearfix  ">
+
+                                <ng-container *ngIf='admin.role=="SuperAdmin"'>
+                                    <button type="button" pButton icon="fas fa-times" (click)="delete()"
+                                        class="ui-button-danger" label="{{'SAMPLE.delete' | translate}}"
+                                        value="{{location1._id}}">
+                                    </button> &nbsp;&nbsp;
+                                </ng-container>
+                                <button type="submit" pButton icon="fa fa-check" label="{{'SAMPLE.edit' | translate}}"
+                                    class="ui-button-warning"></button> &nbsp;&nbsp;&nbsp;
+                            </div>
+                        </div>
+                    </div>
+                </p-footer>
+            </form>
+
+        </p-dialog>
+    </div>
+
+</div>

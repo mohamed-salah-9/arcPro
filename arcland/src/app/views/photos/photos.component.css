@@ -1,0 +1,89 @@
+.card-g{
+    border: none;
+    background: #f2f2f2;
+    cursor: pointer;
+}
+.c-body{
+    transition: all .5s;
+}
+.card-img{
+    transition: all 2s;
+}
+/*---
+.overlay1{
+    position: relative;
+}
+.overlay-div{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: .5 ease;
+    background: #6078aa;
+}-*/
+.card-g:hover .c-body{
+    box-shadow: #707070;
+    box-shadow: 0px 4px 12px 0px #707070;
+}
+.card-g:hover .card-img{
+    transform: scale(1.2);
+}
+ 
+
+.card-small , .card-h5{ 
+    position: relative;
+}
+.card-small::after{
+    content: '';
+    position: absolute;
+    border: 2px solid #CD6155;
+    top: 8px;
+    left: 48px;
+    width: 10%;
+    border-radius: 5px;
+}
+.card-h5{
+    font-size: 1.33em;
+    font-weight: bold;
+    color: inherit;
+    font-family: "Montserrat";
+    text-transform: capitalize;
+    padding-top: 5%;
+}
+.card-h5:hover{
+ color:#CD6155 ;
+}
+.card-h5::after{
+    content: '';
+    position: absolute;
+    border: 2px solid #CD6155;
+    top: 54px;
+    left: 0px;
+    width: 20%;
+    border-radius: 5px;
+}
+.card-p{
+    font-size: .866em;
+    font-family: "Roboto Condensed",Arial,sans-serif;
+    padding-top: 8%;
+    color: #707070;
+}
+.fasbook{
+    color: #6078aa;
+}
+.instagrm{
+    color: #dc4475;
+}
+.youtube{
+    color: #ff0000;
+}
+.photo-a-ce{
+    background-color: #cd6155;
+    color: white;
+    font-weight: bold;
+}
+.photo-a-ce:hover{
+    background-color: white;
+    color: #CD6155;
+}

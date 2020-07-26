@@ -1,0 +1,35 @@
+:host {
+
+    .content{
+        max-width:1700px;
+   
+
+    }
+    .mydialog {
+        width: 50vw;
+    }
+    
+    @media screen and (max-width: 55em) {
+        .mydialog {
+            width: 50vw;
+        }
+    }
+    
+}
+.tt {
+    /* Set "my-sec-counter" to 0 */
+    counter-reset: my-sec-counter;
+  }
+  .content{
+    max-width: 2200px;
+}
+.secondary-text{
+    font-size: 1.7rem !important;
+    color: rgb(114, 52, 52);
+}
+  .count::before {
+    /* Increment "my-sec-counter" by 1 */
+    counter-increment: my-sec-counter;
+    content: counter(my-sec-counter)  ;
+  }
+  

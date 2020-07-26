@@ -1,0 +1,60 @@
+ 
+<!-- <tr *ngFor="let locations of locations">
+    <ng-container   *ngIf="locations.bussines_id==id  ">
+        <ng-container  *ngFor="let bills of bills">
+            <ng-container   *ngIf="bills.bills_id==locations._id  ">
+
+            <td>{{locations.location}}</td><br> <td>{{bills.bill}}</td></ng-container></ng-container> </ng-container></tr> -->
+            <p-table [scrollable]="true" scrollHeight="37rem" [columns]="cols" [value]="locations"[responsive]="true" [resizableColumns]="true" [paginator]="true"  [rows]="35" id="excel-table">
+                <ng-template pTemplate="caption"  class="tt">
+                   Report
+                </ng-template>
+                <ng-template pTemplate="caption">
+                    <div class="ui-helper-clearfix" style="text-align: left">
+                        <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL"
+                        (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button>
+                                                </div>
+                </ng-template>
+                <ng-template pTemplate="colgroup" let-columns>
+                    <colgroup>
+                        <col *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+                    </colgroup>
+                </ng-template>
+                <ng-template pTemplate="header">
+                        <tr>
+ 
+                            <th  >{{'SAMPLE.Name' | translate}}  </th>            
+
+                            <th >{{'SAMPLE.Price Per Square Meter' | translate}} </th>
+                            <th class="ui-p-5">{{'SAMPLE.actual_quantity' | translate}}</th>
+                            <th class="ui-p-6">{{'SAMPLE.total' | translate}}</th>
+                     
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-locations>
+                        <tr *ngFor="let location_details of location_details" >
+                            <ng-container *ngIf="locations.bussines_id==id  &&location_details.Location_detail_id==locations._id"   >
+                                    
+                                <td    >{{location_details.band_name}}</td>
+                                 <td  >{{location_details.price_per_square_meter}}</td>
+                                <td  >{{location_details.actual_quantity}}</td>
+                            
+                           <td class="ui-p-5">{{location_details.the_total_cost_to_the_customer}}</td>
+                            </ng-container>   
+                        </tr>
+                        <tr *ngFor="let bills of bills" style="background-color: rgb(245, 223, 223);">
+                            <ng-container *ngIf="bills.bills_id==locations._id &&locations.bussines_id==id  "   >
+                                <td  > {{bills.band}}</td>
+                                <td></td>
+                                <td></td>
+                                 
+                                <td>{{bills.material_price}}</td>
+                            </ng-container>
+                        </tr>
+                    </ng-template>
+                
+            </p-table>
+            
+<!-- <tr *ngFor="let location_details of location_details">
+    {{location_details.estimated_amount_of_assay}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</tr> -->

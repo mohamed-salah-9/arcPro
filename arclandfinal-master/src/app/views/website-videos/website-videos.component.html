@@ -1,0 +1,87 @@
+<div id="ngx-datatable" class="page-layout simple fullwidth docs">
+
+
+    <!-- CONTENT -->
+    <div class="content pr-20 ">
+
+
+        <p-table #dt [columns]="cols" [scrollable]="true" scrollHeight="43rem" [value]="videos" [responsive]="true"
+            [resizableColumns]="true" [paginator]="true" [rows]="35">
+            <!-- export  with pdf , execl, cvs -->
+
+            <ng-template pTemplate="caption">
+                <div class="ui-helper-clearfix" style="text-align: left">
+                    <button type="button" pButton class="ui-button-success" iconPos="left" style="float:right"
+                        icon="fa fa-plus" (click)="showDialogToAdd()" label="{{'SAMPLE.add' | translate}}"></button>
+
+                </div>
+            </ng-template>
+            <ng-template pTemplate="colgroup" let-columns>
+                <colgroup>
+                    <col *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th>{{'SAMPLE.ID' | translate}} </th>
+                    <th>{{'SAMPLE.Video' | translate}} </th>
+                    <th>{{'SAMPLE.Action' | translate}} </th>
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-i="rowIndex" let-videos class="ui-resizable-column">
+                <tr [pSelectableRow]="videos">
+                    <td id="no ">{{ i + 1 }} </td>
+
+                    <td>
+                        <video width="90%" controls>
+                            <source src="http://localhost:3000/{{videos.video }}">
+
+                        </video> </td>
+                    <td>
+                        <div class="ui-g-12 ui-md-12 ui-lg-12 " *ngIf='admin.role=="SuperAdmin"'>
+                            <button type="button" class="ui-button-danger" pButton icon="fas fa-times"
+                                (click)="delete(videos._id)" class="ui-button-danger"
+                                label="{{'SAMPLE.delete' | translate}}">
+                            </button>
+                        </div>
+                    </td>
+
+                </tr>
+            </ng-template>
+
+        </p-table> <!--  for add-->
+
+        <p-dialog header=" Add Videos" [(visible)]="displayDialogforadd" [focusOnShow]="true" [responsive]="true"
+            showEffect="fade" [modal]="false" [style]="{width: '75rem'}">
+            <div class="ui-g ui-fluid">
+
+                <div class="ui-g-4">
+                    <label for="text">{{'SAMPLE.Video' | translate}}</label>
+                </div>
+                <div class="ui-g-8">
+
+                    <p-fileUpload name="video" url="http://localhost:3000/videos" (onUpload)="onUpload($event)"
+                        multiple="multiple" accept="video/*" maxFileSize="1000000000">
+                        <ng-template pTemplate="content">
+                            <ul *ngIf="uploadedFiles.length">
+                                <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                            </ul>
+                        </ng-template>
+                    </p-fileUpload>
+                </div>
+
+
+            </div>
+
+
+
+
+
+        </p-dialog>
+        <!--  for edit-->
+
+
+    </div>
+
+</div>

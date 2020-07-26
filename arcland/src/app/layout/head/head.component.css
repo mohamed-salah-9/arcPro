@@ -1,0 +1,57 @@
+.head{
+    background-image: url("/assets/head2.jpg");
+    height: 300px;
+    background-attachment: fixed;
+    background-size: cover;
+    opacity: .9;
+}
+.head1{
+    text-align: center;
+    padding-top: 10%;
+}
+.head-h{
+    text-transform: uppercase;
+    word-spacing: .5rem;
+    font-size: 50px;
+    font-family: 'Montserrat';
+    color: #191a1e !important;
+}
+.head-p{
+    text-transform: capitalize;
+    word-spacing: .5rem;
+    font-weight: bolder;
+    color: #191a1e;
+}
+.head-span{
+    color: #CD6155;
+}
+
+@media  screen and (max-width: 500px) {
+    .head1{
+        text-align: center;
+        padding-top: 35%;
+    }
+    .head-h{
+        word-spacing: .5rem;
+        font-size: 35px;
+    }
+    .head-p{
+        word-spacing: .5rem;
+        color: #191a1e;
+    }
+  }
+  
+  @media screen and  (min-width:500px) and (max-width: 1000px)  {
+    .head1{
+        text-align: center;
+        padding-top: 18%;
+    }
+    .head-h{
+        word-spacing: .5rem;
+        font-size: 45px;
+    }
+    .head-p{
+        word-spacing: .5rem;
+        color: #191a1e;
+    }
+  }
