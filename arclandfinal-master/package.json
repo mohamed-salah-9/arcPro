@@ -67,7 +67,7 @@
     "jquery": "3.4.1",
     "jspdf": "1.5.3",
     "jspdf-autotable": "3.2.11",
-    "lodash": "4.17.15",
+    "lodash": "4.17.21",
     "moment": "2.24.0",
     "moment-range": "4.0.2",
     "ng2-charts": "2.3.0",
